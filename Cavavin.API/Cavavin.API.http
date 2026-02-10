@@ -1,0 +1,6 @@
+@Cavavin.API_HostAddress = http://localhost:5001
+
+GET {{Cavavin.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
