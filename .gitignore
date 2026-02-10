@@ -1,11 +1,10 @@
 ## --- DOTNET ---
-*.sln
 bin/
 obj/
 out/
+.idea/
 .vscode/
-.vs/
-usersecrets.json
+TestResults/
 appsettings.Development.json
 
 # Ne pas ignorer le fichier de solution lui-même
