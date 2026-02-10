@@ -1,0 +1,26 @@
+## --- DOTNET ---
+*.sln
+bin/
+obj/
+out/
+.vscode/
+.vs/
+usersecrets.json
+appsettings.Development.json
+
+# Ne pas ignorer le fichier de solution lui-même
+!*.sln
+
+## --- TEST RESULTS ---
+TestResults/
+*.sequenced.json
+
+## --- JETBRAINS (Rider) ---
+.idea/
+*.sln.iml
+
+## --- OS X (Mac) ---
+.DS_Store
+
+## --- DOCKER ---
+.dockerignore
