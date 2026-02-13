@@ -21,4 +21,15 @@ public class WineController : ControllerBase
     {
         return await _context.WineBottles.ToListAsync();
     }
+    
+    [HttpPost]
+    public async Task<ActionResult<WineBottle>> PostWine(WineBottle bottle)
+    {
+        bottle.Id = 0; 
+
+        _context.WineBottles.Add(bottle);
+        await _context.SaveChangesAsync();
+
+        return Ok(bottle); 
+    }
 }
