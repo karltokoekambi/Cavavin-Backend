@@ -1,3 +1,4 @@
+using Cavavin.API.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Cavavin.API.Interfaces;
 using Cavavin.API.Models;
@@ -19,13 +20,43 @@ public class WineController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var wines = await _repository.GetAllAsync();
-        return Ok(wines);
+    
+       //usage DTO
+        var winesDto = wines.Select(w => new WineDto(
+            w.Id,
+            w.Name,
+            w.Domain,
+            w.Vintage,
+            w.Region,
+            w.Quantity
+        ));
+        
+        return Ok(winesDto);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(WineBottle wine)
+    public async Task<IActionResult> Create(CreateWineDto wineDto)
     {
-        await _repository.CreateAsync(wine);
-        return CreatedAtAction(nameof(GetAll), new { id = wine.Id }, wine);
+        var wineEntity = new WineBottle {
+            Name = wineDto.Name,
+            Domain = wineDto.Domain,
+            Vintage = wineDto.Vintage,
+            Region = wineDto.Region,
+            Quantity = wineDto.Quantity
+        };
+
+        await _repository.CreateAsync(wineEntity);
+
+        // Renvoi DTO
+        var resultDto = new WineDto(
+            wineEntity.Id,
+            wineEntity.Name,
+            wineEntity.Domain, 
+            wineEntity.Vintage,
+            wineEntity.Region,
+            wineEntity.Quantity
+        );
+
+        return CreatedAtAction(nameof(GetAll), new { id = wineEntity.Id }, resultDto);
     }
 }
