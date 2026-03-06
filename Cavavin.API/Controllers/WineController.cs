@@ -40,9 +40,9 @@ public class WineController : ControllerBase
         var wineEntity = new WineBottle {
             Name = wineDto.Name,
             Domain = wineDto.Domain,
-            Vintage = wineDto.Vintage,
-            Region = wineDto.Region,
-            Quantity = wineDto.Quantity
+            Vintage = wineDto.Vintage ?? 0,
+            Region = wineDto.Region ?? WineRegion.Autre,
+            Quantity = wineDto.Quantity ?? 0
         };
 
         await _repository.CreateAsync(wineEntity);
