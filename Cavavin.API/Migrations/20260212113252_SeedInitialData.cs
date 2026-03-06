@@ -9,12 +9,15 @@ namespace Cavavin.API.Migrations
     /// <inheritdoc />
     public partial class SeedInitialData : Migration
     {
+        private const string TableName = "wine_bottles";
+        private static readonly string[] Columns = new[] { "id", "domain", "end_maturity", "food_pairing_keywords", "is_favorite", "name", "quantity", "region", "start_maturity", "type", "vintage" };
+
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData(
-                table: "wine_bottles",
-                columns: new[] { "id", "domain", "end_maturity", "food_pairing_keywords", "is_favorite", "name", "quantity", "region", "start_maturity", "type", "vintage" },
+                table: TableName,
+                columns: Columns,
                 values: new object[,]
                 {
                     { 1, "Chateau Margaux", 2050, "agneau,gibier,boeuf", true, "Chateau Margaux", 3, "bordeaux", 2025, "red", 2015 },
@@ -28,22 +31,22 @@ namespace Cavavin.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DeleteData(
-                table: "wine_bottles",
+                table: TableName,
                 keyColumn: "id",
                 keyValue: 1);
 
             migrationBuilder.DeleteData(
-                table: "wine_bottles",
+                table: TableName,
                 keyColumn: "id",
                 keyValue: 2);
 
             migrationBuilder.DeleteData(
-                table: "wine_bottles",
+                table: TableName,
                 keyColumn: "id",
                 keyValue: 3);
 
             migrationBuilder.DeleteData(
-                table: "wine_bottles",
+                table: TableName,
                 keyColumn: "id",
                 keyValue: 4);
         }

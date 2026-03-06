@@ -45,6 +45,7 @@ public class WineControllerTests
         Assert.Equal(2, dTOs.Count());
         Assert.Equal("Château Margaux", dTOs.First().Name);
         Assert.Equal("Pétrus", dTOs.Last().Name);
+        Assert.Equal(1, dTOs.First().Id);
     }
     
     [Fact]

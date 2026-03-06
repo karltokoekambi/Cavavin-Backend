@@ -7,15 +7,15 @@ public record WineDto(
     int Id,
     string Name,
     string Domain,
-    int Vintage,
-    WineRegion Region,
-    int Quantity
+    int? Vintage,
+    WineRegion? Region,
+    int? Quantity
     );
 
 public record CreateWineDto(
     [Required] string Name,
     [Required] string Domain,
-    int Vintage,
-    WineRegion Region,
-    int Quantity
+    int? Vintage,
+    WineRegion? Region,
+    int? Quantity
     );

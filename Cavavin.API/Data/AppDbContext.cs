@@ -18,14 +18,14 @@ public class AppDbContext : DbContext
             .Property(w => w.Type)
             .HasConversion(
                 v => v.ToString().ToLower(),
-                v => (WineType)Enum.Parse(typeof(WineType), v, true)
+                v => Enum.Parse<WineType>(v, true)
             );
         
         modelBuilder.Entity<WineBottle>()
             .Property(w => w.Region)
             .HasConversion(
                 v => v.ToString().ToLower(),
-                v => (WineRegion)Enum.Parse(typeof(WineRegion), v, true)
+                v => Enum.Parse<WineRegion>(v, true)
             );
 
         modelBuilder.Entity<WineBottle>().HasData(
