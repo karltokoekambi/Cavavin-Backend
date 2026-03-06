@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Cavavin.API.Data;
+using Cavavin.API.Interfaces;
 using Cavavin.API.Models;
 
 namespace Cavavin.API.Controllers;
@@ -9,27 +8,24 @@ namespace Cavavin.API.Controllers;
 [Route("api/[controller]")]
 public class WineController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly IWineRepository _repository;
 
-    public WineController(AppDbContext context)
+    public WineController(IWineRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<WineBottle>>> GetBottles()
+    public async Task<IActionResult> GetAll()
     {
-        return await _context.WineBottles.ToListAsync();
+        var wines = await _repository.GetAllAsync();
+        return Ok(wines);
     }
-    
+
     [HttpPost]
-    public async Task<ActionResult<WineBottle>> PostWine(WineBottle bottle)
+    public async Task<IActionResult> Create(WineBottle wine)
     {
-        bottle.Id = 0; 
-
-        _context.WineBottles.Add(bottle);
-        await _context.SaveChangesAsync();
-
-        return Ok(bottle); 
+        await _repository.CreateAsync(wine);
+        return CreatedAtAction(nameof(GetAll), new { id = wine.Id }, wine);
     }
 }

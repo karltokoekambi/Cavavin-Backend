@@ -4,7 +4,7 @@ namespace Cavavin.API.Interfaces;
 
 public interface IWineRepository
 {
-    Task<IEnumerable<WineBottle>> GetAllAsync(string? region, string? sortBy);
+    Task<IEnumerable<WineBottle>> GetAllAsync();
     Task<WineBottle?> GetByIdAsync(int id);
     Task CreateAsync(WineBottle wine);
     Task UpdateAsync(WineBottle wine);
