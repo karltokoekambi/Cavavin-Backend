@@ -7,54 +7,57 @@ namespace Cavavin.API.Migrations
     /// <inheritdoc />
     public partial class ApplyNamingConventions : Migration
     {
+        private const string NewTableName = "wine_bottles";
+        private const string OldTableName = "WineBottles";
+        
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropPrimaryKey(
                 name: "PK_WineBottles",
-                table: "WineBottles");
+                table: OldTableName);
 
             migrationBuilder.DropColumn(
                 name: "Castle",
-                table: "WineBottles");
+                table: OldTableName);
 
             migrationBuilder.RenameTable(
-                name: "WineBottles",
-                newName: "wine_bottles");
+                name: OldTableName,
+                newName: NewTableName);
 
             migrationBuilder.RenameColumn(
                 name: "Region",
-                table: "wine_bottles",
+                table: NewTableName,
                 newName: "region");
 
             migrationBuilder.RenameColumn(
                 name: "Quantity",
-                table: "wine_bottles",
+                table: NewTableName,
                 newName: "quantity");
 
             migrationBuilder.RenameColumn(
                 name: "Name",
-                table: "wine_bottles",
+                table: NewTableName,
                 newName: "name");
 
             migrationBuilder.RenameColumn(
                 name: "Id",
-                table: "wine_bottles",
+                table: NewTableName,
                 newName: "id");
 
             migrationBuilder.RenameColumn(
                 name: "Year",
-                table: "wine_bottles",
+                table: NewTableName,
                 newName: "vintage");
 
             migrationBuilder.RenameColumn(
                 name: "Color",
-                table: "wine_bottles",
+                table: NewTableName,
                 newName: "type");
 
             migrationBuilder.AlterColumn<string>(
                 name: "name",
-                table: "wine_bottles",
+                table: NewTableName,
                 type: "character varying(100)",
                 maxLength: 100,
                 nullable: false,
@@ -63,7 +66,7 @@ namespace Cavavin.API.Migrations
 
             migrationBuilder.AddColumn<string>(
                 name: "domain",
-                table: "wine_bottles",
+                table: NewTableName,
                 type: "character varying(100)",
                 maxLength: 100,
                 nullable: false,
@@ -71,14 +74,14 @@ namespace Cavavin.API.Migrations
 
             migrationBuilder.AddColumn<int>(
                 name: "end_maturity",
-                table: "wine_bottles",
+                table: NewTableName,
                 type: "integer",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<string>(
                 name: "food_pairing_keywords",
-                table: "wine_bottles",
+                table: NewTableName,
                 type: "character varying(500)",
                 maxLength: 500,
                 nullable: false,
@@ -86,21 +89,21 @@ namespace Cavavin.API.Migrations
 
             migrationBuilder.AddColumn<bool>(
                 name: "is_favorite",
-                table: "wine_bottles",
+                table: NewTableName,
                 type: "boolean",
                 nullable: false,
                 defaultValue: false);
 
             migrationBuilder.AddColumn<int>(
                 name: "start_maturity",
-                table: "wine_bottles",
+                table: NewTableName,
                 type: "integer",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_wine_bottles",
-                table: "wine_bottles",
+                table: NewTableName,
                 column: "id");
         }
 
@@ -109,65 +112,65 @@ namespace Cavavin.API.Migrations
         {
             migrationBuilder.DropPrimaryKey(
                 name: "PK_wine_bottles",
-                table: "wine_bottles");
+                table: NewTableName);
 
             migrationBuilder.DropColumn(
                 name: "domain",
-                table: "wine_bottles");
+                table: NewTableName);
 
             migrationBuilder.DropColumn(
                 name: "end_maturity",
-                table: "wine_bottles");
+                table: NewTableName);
 
             migrationBuilder.DropColumn(
                 name: "food_pairing_keywords",
-                table: "wine_bottles");
+                table: NewTableName);
 
             migrationBuilder.DropColumn(
                 name: "is_favorite",
-                table: "wine_bottles");
+                table: NewTableName);
 
             migrationBuilder.DropColumn(
                 name: "start_maturity",
-                table: "wine_bottles");
+                table: NewTableName);
 
             migrationBuilder.RenameTable(
-                name: "wine_bottles",
-                newName: "WineBottles");
+                name: NewTableName,
+                newName: OldTableName);
 
             migrationBuilder.RenameColumn(
                 name: "region",
-                table: "WineBottles",
+                table: OldTableName,
                 newName: "Region");
 
             migrationBuilder.RenameColumn(
                 name: "quantity",
-                table: "WineBottles",
+                table: OldTableName,
                 newName: "Quantity");
 
             migrationBuilder.RenameColumn(
                 name: "name",
-                table: "WineBottles",
+                table: OldTableName,
                 newName: "Name");
 
             migrationBuilder.RenameColumn(
                 name: "id",
-                table: "WineBottles",
+                table: OldTableName,
                 newName: "Id");
 
             migrationBuilder.RenameColumn(
                 name: "vintage",
-                table: "WineBottles",
+                table: OldTableName,
                 newName: "Year");
 
             migrationBuilder.RenameColumn(
                 name: "type",
-                table: "WineBottles",
+                table: OldTableName,
                 newName: "Color");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
-                table: "WineBottles",
+                table: OldTableName,
                 type: "text",
                 nullable: false,
                 oldClrType: typeof(string),
@@ -176,14 +179,14 @@ namespace Cavavin.API.Migrations
 
             migrationBuilder.AddColumn<string>(
                 name: "Castle",
-                table: "WineBottles",
+                table: OldTableName,
                 type: "text",
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_WineBottles",
-                table: "WineBottles",
+                table: OldTableName,
                 column: "Id");
         }
     }
