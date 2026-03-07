@@ -2,6 +2,7 @@
 using Cavavin.API.DTOs;
 using Cavavin.API.Interfaces;
 using Cavavin.API.Models;
+using FluentValidation;
 using Moq;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,8 @@ public class WineControllerTests
     public async Task GetAll_ReturnsOk_WithDtoList()
     {
         var mockRepo = new Mock<IWineRepository>();
+        var mockValidator = new Mock<IValidator<WineCreateDto>>();
+        
         var fakeWines = new List<WineBottle>
         {
             new WineBottle
@@ -36,7 +39,7 @@ public class WineControllerTests
         };
         mockRepo.Setup(repo => repo.GetAllAsync()).ReturnsAsync(fakeWines);
 
-        var controller = new WineController(mockRepo.Object);
+        var controller = new WineController(mockRepo.Object, mockValidator.Object);
         
         var result = await controller.GetAll();
         
@@ -52,8 +55,12 @@ public class WineControllerTests
     public async Task Create_ReturnsCreatedResult_WithNewWine()
     {
         var mockRepo = new Mock<IWineRepository>();
-        var controller = new WineController(mockRepo.Object);
-        var newWineDto = new CreateWineDto("Château Test", "Domaine Test", 2020, WineRegion.Alsace, 6);
+        var mockValidator = new Mock<IValidator<WineCreateDto>>();
+        mockValidator.Setup(v => v.ValidateAsync(It.IsAny<WineCreateDto>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new FluentValidation.Results.ValidationResult());
+
+        var controller = new WineController(mockRepo.Object, mockValidator.Object);
+        var newWineDto = new WineCreateDto( "Château Test", "Domaine Test", 2020, WineRegion.Alsace, 6);
         
         var result = await controller.Create(newWineDto);
         

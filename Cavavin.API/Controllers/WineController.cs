@@ -2,6 +2,7 @@ using Cavavin.API.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Cavavin.API.Interfaces;
 using Cavavin.API.Models;
+using FluentValidation;
 
 namespace Cavavin.API.Controllers;
 
@@ -10,10 +11,12 @@ namespace Cavavin.API.Controllers;
 public class WineController : ControllerBase
 {
     private readonly IWineRepository _repository;
+    private readonly IValidator<WineCreateDto> _validator;
 
-    public WineController(IWineRepository repository)
+    public WineController(IWineRepository repository, IValidator<WineCreateDto> validator)
     {
         _repository = repository;
+        _validator  = validator;
     }
 
     [HttpGet]
@@ -35,14 +38,21 @@ public class WineController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateWineDto wineDto)
+    public async Task<IActionResult> Create(WineCreateDto wineDto)
     {
+        var validationResult = await _validator.ValidateAsync(wineDto);
+    
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+        
         var wineEntity = new WineBottle {
             Name = wineDto.Name,
             Domain = wineDto.Domain,
             Vintage = wineDto.Vintage ?? 0,
             Region = wineDto.Region ?? WineRegion.Autre,
-            Quantity = wineDto.Quantity ?? 0
+            Quantity = wineDto.Quantity ?? 1
         };
 
         await _repository.CreateAsync(wineEntity);

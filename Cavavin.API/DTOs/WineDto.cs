@@ -12,7 +12,7 @@ public record WineDto(
     int? Quantity
     );
 
-public record CreateWineDto(
+public record WineCreateDto(
     [Required] string Name,
     [Required] string Domain,
     int? Vintage,
