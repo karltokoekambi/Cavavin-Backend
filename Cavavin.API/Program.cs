@@ -17,7 +17,7 @@ builder.Services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
     {
         options.SuppressModelStateInvalidFilter = false; 
-    });;
+    });
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -38,7 +38,6 @@ builder.Services.AddScoped<IWineRepository, WineRepository>();
 
 //Validation
 builder.Services.AddFluentValidationAutoValidation();
-//builder.Services.AddValidatorsFromAssemblyContaining<WineCreateDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var app = builder.Build();
